@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "475221814680",
+    "firebase_url": "https://yellowride-1545105210234.firebaseio.com",
+    "project_id": "yellowride-1545105210234",
+    "storage_bucket": "yellowride-1545105210234.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:475221814680:android:d21ecf413e9b7f334c0fed",
+        "android_client_info": {
+          "package_name": "com.rabbitt.smarttech"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "475221814680-tvsqi87qbljvo3of4c1f0h45hai75tli.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rabbitt.smarttech",
+            "certificate_hash": "6422649221abf7e770051172b5a095ec86ebef5c"
+          }
+        },
+        {
+          "client_id": "475221814680-j9k8v730vpedibpro53jiv3jgvi4b613.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXcF8azRRplR1mG9CwROtRgnPKM7d0pCY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "475221814680-j9k8v730vpedibpro53jiv3jgvi4b613.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
