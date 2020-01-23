@@ -42,11 +42,19 @@ public class SplashScreenActivity extends AppCompatActivity {
                     }
                     else
                     {
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intent);
-                        finish();
+                        if (prefsManager.isFlashResult())
+                        {
+                            Intent intent = new Intent(getApplicationContext(),MemberActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                        else
+                        {
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
                     }
-
                 }
                 catch (Exception ex)
                 {

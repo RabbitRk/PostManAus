@@ -11,6 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".MemberRegistrationActivity"></activity>
         <activity android:name=".MemberActivity" />
         <activity android:name=".Fragment.AboutFrag" />
         <activity android:name=".SettingActivity" />
@@ -18,13 +19,14 @@
         <activity android:name=".RegistrationActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainNavigation.MainActivity" />
-        <activity android:name="SplashScreenActivity">
+        <activity android:name=".SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service
             android:name=".Firebase.FirebaseMessengingService"
             tools:ignore="ExportedService,InnerclassSeparator">

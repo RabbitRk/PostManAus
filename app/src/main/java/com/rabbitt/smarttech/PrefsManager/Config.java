@@ -11,4 +11,6 @@ public class Config {
     public static final String TIMELINE = "http://192.168.0.103/Etekchno/timeLine";
     public static final String MTIMELINE = "http://192.168.0.103/Etekchno/mtimeLine";
     public static final String MEMBER_LIST = "http://192.168.0.103/Etekchno/memberList";
+    public static final String MEMBER_REGISTER = "http://192.168.0.103/Etekchno/insertMember";
+    public static final String UPDATE_MEMBER_CODE = "http://192.168.0.103/Etekchno/updateMemberCode";
 }

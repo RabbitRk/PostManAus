@@ -15,7 +15,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.rabbitt.smarttech.MainNavigation.MainActivity;
 import com.rabbitt.smarttech.PrefsManager.Config;
 import com.rabbitt.smarttech.PrefsManager.PrefsManager;
 
@@ -26,30 +25,27 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RegistrationActivity extends AppCompatActivity {
+public class MemberRegistrationActivity extends AppCompatActivity {
 
     private static final String TAG = "rkd";
     EditText user, mobile, address, email, password;
     String getId, userStr,phoneStr, token, emailStr;
-//    public static final String PHONE_EXTRA = "PhoneNumber";
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registration);
+        setContentView(R.layout.activity_member_registration);
 
-        update_user();
         init();
+        update_user();
+
     }
 
     private void init() {
         user = findViewById(R.id.name);
         mobile = findViewById(R.id.phone);
-        address = findViewById(R.id.address);
         email= findViewById(R.id.email);
-        password = findViewById(R.id.password);
+        password = findViewById(R.id.parent_code);
 
         SharedPreferences sharedPreferences = getSharedPreferences(Config.TOKEN_PREF, MODE_PRIVATE);
         token = sharedPreferences.getString("token", null);
@@ -59,7 +55,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private void update_user() {
         //denote user visit this page
         PrefsManager prefsManager = new PrefsManager(getApplicationContext());
-        prefsManager.setFirstTimeLaunch(true);
+        prefsManager.setFlashResult(true);
     }
 
     public void insertUser(View view) {
@@ -68,11 +64,10 @@ public class RegistrationActivity extends AppCompatActivity {
         phoneStr = mobile.getText().toString();
         emailStr = email.getText().toString();
 
-
         final ProgressDialog loading = ProgressDialog.show(this, "Registering", "Please wait...", false, false);
 
         //Again creating the string request
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.USER_REGISTER,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.MEMBER_REGISTER,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -110,9 +105,8 @@ public class RegistrationActivity extends AppCompatActivity {
                 params.put("USER_NAME", user.getText().toString());
                 params.put("MOBILE", phoneStr);
                 params.put("EMAIL", email.getText().toString());
-                params.put("ADDRESS", address.getText().toString());
                 params.put("TOKEN", token);
-                params.put("PASSWORD", password.getText().toString());
+                params.put("PARENT", password.getText().toString());
                 return params;
             }
         };
@@ -131,7 +125,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private void reg() {
         Intent ottp_page = new Intent(getApplicationContext(), OtpActivity.class);
         ottp_page.putExtra("phone", phoneStr);
-        ottp_page.putExtra("activity", "user");
+        ottp_page.putExtra("activity", "member");
         startActivity(ottp_page);
         finish();
         Log.i(TAG, "json success.............................." + getId);

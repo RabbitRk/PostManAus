@@ -59,6 +59,7 @@ public class MemberFrag extends Fragment implements MemberAdapter.OnRecycleItemL
     List<RecycleAdapter> data = new ArrayList<>();
     RecycleAdapter model = null;
     String user_id;
+    int member_code;
 
     public MemberFrag() {
         // Required empty public constructor
@@ -107,8 +108,46 @@ public class MemberFrag extends Fragment implements MemberAdapter.OnRecycleItemL
         member_ = view.findViewById(R.id.parent_id);
 
         // Generate random integers in range 0 to 999
-        int member_code = rand.nextInt(10000);
+        member_code = rand.nextInt(10000);
         member_.setText(String.valueOf(member_code));
+
+        updateMemberCode();
+    }
+
+    private void updateMemberCode() {
+        Log.i(TAG, "Current thread: get " + Thread.currentThread().getId());
+        //progressdialog until the data retrieved
+        final ProgressDialog loading = ProgressDialog.show(getActivity(), "Updating Member code", "Please wait...", false, false);
+
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.UPDATE_MEMBER_CODE,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        //cancel the progress dialog
+                        loading.dismiss();
+                        Toast.makeText(getActivity(), "Updated Successfully", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        loading.dismiss();
+                        Log.i(TAG, "volley error.............................." + error.getMessage());
+                        Toast.makeText(getActivity(), "Server is not responding", Toast.LENGTH_LONG).show();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                //Adding the parameters to the request
+                params.put("USER_ID", user_id);
+                return params;
+            }
+        };
+
+        //Adding request the the queue
+        VolleySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
     }
 
     private void getCompanyList() {

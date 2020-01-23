@@ -28,7 +28,7 @@ public class OtpActivity extends AppCompatActivity {
 
     public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
     public static final String TAG = "MainActivity";
-    String otpLocal = "", phoneTxt = "";
+    String otpLocal = "", phoneTxt = "", activity = "";
     EditText tv;
     String token;
     ProgressDialog loading;
@@ -55,7 +55,8 @@ public class OtpActivity extends AppCompatActivity {
 
     private void init() {
         Intent intent = getIntent();
-        phoneTxt = intent.getStringExtra(RegistrationActivity.PHONE_EXTRA);
+        phoneTxt = intent.getStringExtra("phone");
+        activity = intent.getStringExtra("activity");
         tv = findViewById(R.id.otpTxt);
 
         Log.i(TAG, "Phone checking........................" + phoneTxt);
@@ -136,7 +137,13 @@ public class OtpActivity extends AppCompatActivity {
                             //dismissing the progressbar
                             loading.dismiss();
                             //Starting a new activity
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            if (activity.equals("user"))
+                            {
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            }
+                            else {
+                                startActivity(new Intent(getApplicationContext(), MemberActivity.class));
+                            }
                             finish();
                         } else {
                             loading.dismiss();
@@ -161,6 +168,7 @@ public class OtpActivity extends AppCompatActivity {
                 params.put("cus_phone", phoneTxt);
                 params.put("otp", otpLocal);
                 params.put("token", token);
+                params.put("activity", activity);
                 return params;
             }
         };
