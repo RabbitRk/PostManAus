@@ -5,20 +5,30 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 
+import com.rabbitt.smarttech.Fragment.AboutFrag;
 import com.rabbitt.smarttech.Fragment.MainFragment;
+import com.rabbitt.smarttech.Fragment.MemberFrag;
+import com.rabbitt.smarttech.Fragment.SettingFrag;
+import com.rabbitt.smarttech.PrefsManager.PrefsManager;
 import com.rabbitt.smarttech.R;
+import com.rabbitt.smarttech.SettingActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Set;
 
 import nl.psdcompany.duonavigationdrawer.views.DuoDrawerLayout;
 import nl.psdcompany.duonavigationdrawer.views.DuoMenuView;
 import nl.psdcompany.duonavigationdrawer.widgets.DuoDrawerToggle;
 
-public class MainActivity extends AppCompatActivity implements DuoMenuView.OnMenuClickListener {
+public class MainActivity extends AppCompatActivity implements DuoMenuView.OnMenuClickListener, MemberFrag.OnFragmentInteractionListener, SettingFrag.OnFragmentInteractionListener, AboutFrag.OnFragmentInteractionListener {
 
+    private static final String TAG = "rkd";
     private MenuAdapter mMenuAdapter;
     private ViewHolder mViewHolder;
 
@@ -45,9 +55,13 @@ public class MainActivity extends AppCompatActivity implements DuoMenuView.OnMen
         handleDrawer();
 
         // Show main fragment in container
-        goToFragment(new MainFragment(), false);
+        goToFragment(new MainFragment());
         mMenuAdapter.setViewSelected(0, true);
         setTitle(mTitles.get(0));
+        //denote user visit this page
+
+        PrefsManager prefsManager = new PrefsManager(getApplicationContext());
+        prefsManager.setFirstTimeLaunch(true);
 
 
     }
@@ -93,9 +107,22 @@ public class MainActivity extends AppCompatActivity implements DuoMenuView.OnMen
         mMenuAdapter.setViewSelected(position, true);
 
         // Navigate to the right fragment
+        Log.i(TAG, "onOptionClicked: "+position);
         switch (position) {
+            case 0:
+                goToFragment(new MainFragment());
+                break;
+            case 1:
+                goToFragment(new MemberFrag());
+                break;
+            case 2:
+                goToFragment(new SettingFrag());
+//                startActivity(new Intent(this, SettingActivity.class));
+                break;
+            case 3:
+                goToFragment(new AboutFrag());
+                break;
             default:
-                goToFragment(new MainFragment(), false);
                 break;
         }
 
@@ -103,14 +130,20 @@ public class MainActivity extends AppCompatActivity implements DuoMenuView.OnMen
         mViewHolder.mDuoDrawerLayout.closeDrawer();
     }
 
-    private void goToFragment(Fragment fragment, boolean addToBackStack) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
-        if (addToBackStack) {
-            transaction.addToBackStack(null);
+    private void goToFragment(Fragment fragment) {
+        if (fragment != null) {
+            Log.i(TAG, "Current thread: " + Thread.currentThread().getId());
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.container, fragment)
+                    .addToBackStack(null)
+                    .commit();
         }
+    }
 
-        transaction.add(R.id.container, fragment).commit();
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 
     private class ViewHolder {

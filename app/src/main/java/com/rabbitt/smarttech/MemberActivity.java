@@ -1,30 +1,27 @@
-package com.rabbitt.smarttech.Fragment;
+package com.rabbitt.smarttech;
 
-
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.rabbitt.smarttech.Adapter.MTimeLineAdapter;
 import com.rabbitt.smarttech.Adapter.RecycleAdapter;
 import com.rabbitt.smarttech.Adapter.TimeLineAdapter;
 import com.rabbitt.smarttech.PrefsManager.Config;
-import com.rabbitt.smarttech.R;
-import com.rabbitt.smarttech.VolleySingleton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,49 +31,56 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import static com.rabbitt.smarttech.OtpActivity.TAG;
-import static com.rabbitt.smarttech.PrefsManager.PrefsManager.ID_KEY;
-import static com.rabbitt.smarttech.PrefsManager.PrefsManager.USER_PREFS;
 
-public class MainFragment extends Fragment implements TimeLineAdapter.OnRecycleItemListener {
+public class MemberActivity extends AppCompatActivity implements MTimeLineAdapter.OnRecycleItemListener{
 
     View view;
 
     RecyclerView recyclerView;
     List<RecycleAdapter> productAdapter;
-    TimeLineAdapter recycleadapter;
+    MTimeLineAdapter recycleadapter;
     List<RecycleAdapter> data = new ArrayList<>();
     RecycleAdapter model = null;
     String user_id;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
-        init(view);
-        return view;
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_member);
     }
 
-    private void init(View view) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
 
-        SharedPreferences shrp = Objects.requireNonNull(getActivity()).getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
-        user_id = shrp.getString(ID_KEY,"");
-
-        recyclerView = view.findViewById(R.id.time_recycler);
-        productAdapter = new ArrayList<>();
-
-        getCompanyList();
-        updaterecyclershit(data);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id){
+            case R.id.item1:
+                startActivity(new Intent(this, SettingActivity.class));
+                return true;
+            case R.id.item2:
+                Toast.makeText(getApplicationContext(),"Log off",Toast.LENGTH_LONG).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void getCompanyList() {
+
+
         Log.i(TAG, "Current thread: get " + Thread.currentThread().getId());
         //progressdialog until the data retrieved
-        final ProgressDialog loading = ProgressDialog.show(getActivity(), "Collecting Information", "Please wait...", false, false);
+        final ProgressDialog loading = ProgressDialog.show(this, "Collecting Information", "Please wait...", false, false);
 
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.TIMELINE,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.MTIMELINE,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -108,7 +112,7 @@ public class MainFragment extends Fragment implements TimeLineAdapter.OnRecycleI
                     public void onErrorResponse(VolleyError error) {
                         loading.dismiss();
                         Log.i(TAG, "volley error.............................." + error.getMessage());
-                        Toast.makeText(getActivity(), "Server is not responding", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Server is not responding", Toast.LENGTH_LONG).show();
                     }
                 }) {
             @Override
@@ -121,13 +125,7 @@ public class MainFragment extends Fragment implements TimeLineAdapter.OnRecycleI
         };
 
         //Adding request the the queue
-        VolleySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
-//            }
-//
-//        }).start();
-
-
-
+        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
     }
     private void updaterecyclershit(List<RecycleAdapter> datam) {
 
@@ -135,10 +133,10 @@ public class MainFragment extends Fragment implements TimeLineAdapter.OnRecycleI
         Log.i(TAG, "Current thread:update " + Thread.currentThread().getId());
         if (datam != null) {
 
-            recycleadapter = new TimeLineAdapter(datam, this, this);
+            recycleadapter = new MTimeLineAdapter(datam, this, this);
             Log.i("HIteshdata", "" + datam);
 
-            LinearLayoutManager reLayoutManager = new LinearLayoutManager(getActivity());
+            LinearLayoutManager reLayoutManager = new LinearLayoutManager(getApplicationContext());
             recyclerView.setLayoutManager(reLayoutManager);
 
             reLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -149,15 +147,7 @@ public class MainFragment extends Fragment implements TimeLineAdapter.OnRecycleI
 
             recycleadapter.notifyDataSetChanged();
         }
-
-//        recyclerView = findViewById(R.id.recycler_view);
-//        LinearLayoutManager manager = new LinearLayoutManager(this);
-//        recyclerView.setLayoutManager(manager);
-//        recyclerView.setHasFixedSize(true);
-//        adapter = new MyAdapter();
-//        recyclerView.setAdapter(adapter);
     }
-
 
     @Override
     public void OnItemClick(int position) {

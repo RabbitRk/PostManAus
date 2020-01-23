@@ -15,7 +15,7 @@ public class PrefsManager {
     private static final String LOGIN = "IsFirstTimeLaunch";
     private static final String FLASH = "IsFlash";
     //user details
-    private static final String USER_PREFS = "USER_DETAILS";
+    public static final String USER_PREFS = "USER_DETAILS";
     private SharedPreferences pref;
     private SharedPreferences.Editor editor, user_editor;
 
@@ -57,6 +57,4 @@ public class PrefsManager {
         user_editor.putString(USER_EMAIL, emailStr);
         user_editor.commit();
     }
-
-
 }

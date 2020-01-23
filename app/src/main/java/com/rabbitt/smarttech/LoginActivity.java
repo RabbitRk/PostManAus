@@ -26,11 +26,13 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.rabbitt.smarttech.PrefsManager.PrefsManager.USER_PREFS;
+
 public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "rkd";
     EditText user, password;
-    String getId, userStr, phoneStr, token, passStr, emailStr;
+    String getId, userStr, phoneStr, token, passStr, emailStr, notify_stat, email_stat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +46,11 @@ public class LoginActivity extends AppCompatActivity {
     private void init() {
         user = findViewById(R.id.name);
         password = findViewById(R.id.password);
-
-
     }
 
 
     public void loginUser(View view) {
+
         userStr = user.getText().toString();
         passStr = password.getText().toString();
 
@@ -70,6 +71,8 @@ public class LoginActivity extends AppCompatActivity {
                             userStr = jb.getString("name");
                             phoneStr = jb.getString("phone");
                             emailStr = jb.getString("email");
+                            notify_stat = jb.getString("notify_stat");
+                            email_stat = jb.getString("email_stat");
                             Log.i(TAG, "ID: " + getId);
                             if (!getId.equals("")) {
                                 setPrefsdetails();
@@ -111,10 +114,20 @@ public class LoginActivity extends AppCompatActivity {
         editor.putString("token", token);
         editor.apply();
 
+        SharedPreferences shrp1 = getSharedPreferences(USER_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor1 = shrp1.edit();
+        editor1.putString("notify_stat", notify_stat);
+        editor1.putString("email_stat", email_stat);
+        editor1.apply();
+
         PrefsManager prefsManager = new PrefsManager(this);
         prefsManager.userPreferences(getId, userStr, phoneStr, emailStr);
         Log.i(TAG, "set preference Hid.............." + getId);
         startActivity(new Intent(this, MainActivity.class));
 
+    }
+
+    public void gotoreg(View view) {
+        startActivity(new Intent(this, RegistrationActivity.class));
     }
 }

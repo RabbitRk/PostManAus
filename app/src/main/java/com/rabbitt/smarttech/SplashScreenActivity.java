@@ -3,10 +3,13 @@ package com.rabbitt.smarttech;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 
+import com.rabbitt.smarttech.BroadCastReceiver.InternetBroadCast;
 import com.rabbitt.smarttech.MainNavigation.MainActivity;
 import com.rabbitt.smarttech.PrefsManager.PrefsManager;
 
@@ -16,10 +19,16 @@ public class SplashScreenActivity extends AppCompatActivity {
 
     private Handler splash = new Handler();
 
+    InternetBroadCast receiver;
+    IntentFilter filter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
+        checkInternetConnectivity();
+
         splash.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -46,6 +55,21 @@ public class SplashScreenActivity extends AppCompatActivity {
                 }
             }
         }, 1000);
+    }
 
+    private void checkInternetConnectivity() {
+        filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        receiver = new InternetBroadCast();
+        registerReceiver(receiver, filter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        try {
+            if (receiver != null)
+                unregisterReceiver(receiver);
+        } catch (Exception ignored) {
+        }
+        super.onDestroy();
     }
 }

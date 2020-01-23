@@ -2,12 +2,12 @@
     <string name="app_name">SmartTech</string>
 
     <string name="hello_blank_fragment">This is the main fragment</string>
+    <string name="enter_otp_number">Enter the OTP</string>
 
     <array name="menuOptions">
         <item>Home</item>
-        <item>Personal</item>
-        <item>High scores</item>
+        <item>Add Member</item>
         <item>Settings</item>
         <item>About</item>
     </array>
-</resources>
+</resources> 

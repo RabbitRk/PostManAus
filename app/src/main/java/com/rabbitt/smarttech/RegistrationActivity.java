@@ -31,6 +31,9 @@ public class RegistrationActivity extends AppCompatActivity {
     private static final String TAG = "rkd";
     EditText user, mobile, address, email, password;
     String getId, userStr,phoneStr, token, emailStr;
+    public static final String PHONE_EXTRA = "PhoneNumber";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +87,7 @@ public class RegistrationActivity extends AppCompatActivity {
                             if (!getId.equals("")) {
                                 setPrefsdetails();
                             } else {
-                                Toast.makeText(getApplicationContext(), "Registration...Please try again", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Registration not successful...Please try again", Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -122,6 +125,14 @@ public class RegistrationActivity extends AppCompatActivity {
         PrefsManager prefsManager = new PrefsManager(this);
         prefsManager.userPreferences(getId, userStr, phoneStr, emailStr);
         Log.i(TAG, "set preference Hid.............." + getId);
-        startActivity(new Intent(this, MainActivity.class));
+        reg();
+    }
+
+    private void reg() {
+        Intent ottp_page = new Intent(getApplicationContext(), OtpActivity.class);
+        ottp_page.putExtra(PHONE_EXTRA, phoneStr);
+        startActivity(ottp_page);
+        finish();
+        Log.i(TAG, "json success.............................." + getId);
     }
 }
