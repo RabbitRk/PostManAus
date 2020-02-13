@@ -34,7 +34,7 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="30dp"
-            android:background="@drawable/textview_border"
+            android:background="@drawable/text_box_background"
             android:digits="0123456789"
             android:drawableStart="@drawable/user_phone_icon"
             android:drawablePadding="10dp"
@@ -44,10 +44,11 @@
             android:maxLength="4"
             android:paddingStart="0dp"
             android:paddingEnd="5dp"
-            android:textColor="#ffff"
-            android:textColorHint="#ffff"
+            android:textColor="#000000"
+            android:textColorHint="#000000"
             android:textSize="13sp"
             tools:ignore="Autofill"/>
+
 
         <Button
             android:id="@+id/loading_btn"

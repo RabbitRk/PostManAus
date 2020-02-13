@@ -8,14 +8,40 @@
 
     <TextView
         android:id="@+id/parent_id"
-        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
+        style="@style/viewParent.headerText"
+        android:text="1104"
         />
+
+    <TextView
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/viewParent.headerText.settingsMiniTitle"
+        android:text="Your code"
+        />
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_margin="30dp"
+        android:layout_height="wrap_content"
+        style="@style/viewParent.headerText.settingsMiniTitle"
+        android:text="Your members"
+        />
+
+<!--    <include-->
+<!--        layout="@layout/member_listing"-->
+<!--        />-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/member_recycler"
         android:layout_width="match_parent"
+        android:visibility="visible"
         android:layout_height="match_parent"/>
 
 </LinearLayout>

@@ -8,34 +8,115 @@
     tools:context=".MemberRegistrationActivity">
 
 
-    <EditText
-        android:id="@+id/name"
-        android:hint="name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
-    <EditText
-        android:id="@+id/phone"
-        android:hint="phone"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp">
 
-    <EditText
-        android:id="@+id/email"
-        android:hint="email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="35dp"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:orientation="vertical">
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/smarttec_logo" />
+            </LinearLayout>
 
-    <EditText
-        android:id="@+id/parent_code"
-        android:hint="parent_code"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/text_box_background"
+                android:drawableStart="@drawable/user_icon"
+                android:drawablePadding="15dp"
+                android:fontFamily="sans-serif"
+                android:inputType="text"
+                android:hint="Enter User Name"
+                android:textColor="#000000"
+                android:textColorHint="#000000"
+                android:textSize="16sp" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="insertUser"
-        android:text="Register" />
+            <EditText
+                android:id="@+id/phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/text_box_background"
+                android:drawableStart="@drawable/user_phone_icon"
+                android:drawablePadding="15dp"
+                android:fontFamily="sans-serif"
+                android:hint="Enter Number"
+                android:inputType="phone"
+                android:textColor="#000000"
+                android:textColorHint="#000000"
+                android:textSize="16sp" />
 
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/text_box_background"
+                android:drawableStart="@drawable/email_box"
+                android:drawablePadding="15dp"
+                android:fontFamily="sans-serif"
+                android:hint="Enter Email Address"
+                android:inputType="textEmailAddress"
+                android:textColor="#000000"
+                android:textColorHint="#000000"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/parent_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/text_box_background"
+                android:drawableStart="@drawable/pass_icon"
+                android:drawablePadding="15dp"
+                android:fontFamily="sans-serif"
+                android:hint="Enter parent code"
+                android:inputType="text"
+                android:textColor="#000000"
+                android:textColorHint="#000000"
+                android:textSize="16sp"/>
+            <Button
+                android:id="@+id/loading_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginEnd="30dp"
+                android:background="@color/colorPrimaryDark"
+                android:fontFamily="sans-serif"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:onClick="insertUser"
+                android:text="Add User"
+                android:textColor="#ffff" />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

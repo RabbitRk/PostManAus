@@ -48,7 +48,6 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.password);
     }
 
-
     public void loginUser(View view) {
 
         userStr = user.getText().toString();
@@ -74,6 +73,7 @@ public class LoginActivity extends AppCompatActivity {
                             notify_stat = jb.getString("notify_stat");
                             email_stat = jb.getString("email_stat");
                             Log.i(TAG, "ID: " + getId);
+
                             if (!getId.equals("")) {
                                 setPrefsdetails();
                             } else {
@@ -122,6 +122,8 @@ public class LoginActivity extends AppCompatActivity {
 
         PrefsManager prefsManager = new PrefsManager(this);
         prefsManager.userPreferences(getId, userStr, phoneStr, emailStr);
+        prefsManager.setEmail(true);
+        prefsManager.setNotis(true);
         Log.i(TAG, "set preference Hid.............." + getId);
         startActivity(new Intent(this, MainActivity.class));
 

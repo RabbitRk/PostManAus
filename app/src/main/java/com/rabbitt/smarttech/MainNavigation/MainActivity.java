@@ -62,9 +62,8 @@ public class MainActivity extends AppCompatActivity implements DuoMenuView.OnMen
 
         PrefsManager prefsManager = new PrefsManager(getApplicationContext());
         prefsManager.setFirstTimeLaunch(true);
-
-
     }
+
     private void handleToolbar() {
         setSupportActionBar(mViewHolder.mToolbar);
     }

@@ -4,47 +4,43 @@
     xmlns:fbutton="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="2dp"
-    android:layout_marginTop="1dp"
-    android:layout_marginRight="2dp"
-    android:layout_marginBottom="2dp"
-    android:background="@color/colorPrimary"
+    android:layout_margin="20dp"
+    card_view:cardBackgroundColor="@color/colorPrimary"
     android:orientation="vertical"
-    card_view:cardCornerRadius="7dp"
-    card_view:cardElevation="10dp">
+    card_view:cardCornerRadius="10dp"
+    card_view:cardElevation="10dp" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
         android:orientation="vertical"
+        android:padding="20dp"
         android:weightSum="1">
 
             <TextView
                 android:id="@+id/text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="0dp"
                 android:gravity="center"
+                android:textStyle="bold"
                 android:text="Connection lost !"
                 android:textColor="#fff"
-                android:textSize="16dp" />
+                android:textSize="25dp" />
 
             <Button
                 android:id="@+id/ok_button"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_below="@+id/text"
-                android:layout_centerHorizontal="true"
                 android:layout_gravity="center"
                 android:layout_marginTop="22dp"
                 android:drawablePadding="0dp"
                 android:gravity="center"
                 android:minWidth="150dp"
                 android:text="Retry"
-                android:textAllCaps="false"
+                android:textSize="20dp"
+                android:textStyle="bold"
                 android:background="@color/colorPrimaryDark"
                 android:textColor="@android:color/white"
                 fbutton:cornerRadius="15dp"

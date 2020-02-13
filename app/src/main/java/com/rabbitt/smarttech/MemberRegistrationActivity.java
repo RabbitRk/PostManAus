@@ -37,7 +37,7 @@ public class MemberRegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_member_registration);
 
         init();
-        update_user();
+//        update_user();
 
     }
 
@@ -52,11 +52,11 @@ public class MemberRegistrationActivity extends AppCompatActivity {
         Log.i(TAG, "TokenRegistration: " + token);
     }
 
-    private void update_user() {
-        //denote user visit this page
-        PrefsManager prefsManager = new PrefsManager(getApplicationContext());
-        prefsManager.setFlashResult(true);
-    }
+//    private void update_user() {
+//        //denote user visit this page
+//        PrefsManager prefsManager = new PrefsManager(getApplicationContext());
+//        prefsManager.setFlashResult(true);
+//    }
 
     public void insertUser(View view) {
 
@@ -86,6 +86,7 @@ public class MemberRegistrationActivity extends AppCompatActivity {
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
+
                             Toast.makeText(getApplicationContext(), "Server is not responding...Please Try again!", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -94,7 +95,8 @@ public class MemberRegistrationActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         loading.dismiss();
-                        Log.i(TAG, "volley error.............................." + error.getMessage());
+                        error.printStackTrace();
+                        Log.i(TAG, "volley error.............................." + error.getMessage()+error.toString());
                         Toast.makeText(getApplicationContext(), "Server is not responding...Please Try again!", Toast.LENGTH_LONG).show();
                     }
                 }) {
@@ -107,6 +109,8 @@ public class MemberRegistrationActivity extends AppCompatActivity {
                 params.put("EMAIL", email.getText().toString());
                 params.put("TOKEN", token);
                 params.put("PARENT", password.getText().toString());
+
+//                Log.i(TAG, "getParams: "+params);
                 return params;
             }
         };

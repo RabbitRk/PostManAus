@@ -142,6 +142,7 @@ public class MemberFrag extends Fragment implements MemberAdapter.OnRecycleItemL
                 Map<String, String> params = new HashMap<>();
                 //Adding the parameters to the request
                 params.put("USER_ID", user_id);
+                params.put("MEMBER_CODE", String.valueOf(member_code));
                 return params;
             }
         };
@@ -151,10 +152,11 @@ public class MemberFrag extends Fragment implements MemberAdapter.OnRecycleItemL
     }
 
     private void getCompanyList() {
+
         Log.i(TAG, "Current thread: get " + Thread.currentThread().getId());
+
         //progressdialog until the data retrieved
         final ProgressDialog loading = ProgressDialog.show(getActivity(), "Collecting Information", "Please wait...", false, false);
-
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.MEMBER_LIST,
                 new Response.Listener<String>() {
@@ -177,7 +179,7 @@ public class MemberFrag extends Fragment implements MemberAdapter.OnRecycleItemL
                                 model.setMember_phone(jb.getString("phone"));
                                 data.add(model);
                             }
-
+//{"id":"1","item_date":"2020-02-13 06:12:20"}]
                             updaterecyclershit(data);
 
                         } catch (JSONException e) {

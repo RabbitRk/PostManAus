@@ -4,20 +4,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="30dp"
     tools:context=".Fragment.SettingFrag">
 
-    <Switch
-        android:id="@+id/notification"
-        android:layout_width="wrap_content"
-        android:checked="true"
-        android:text="Notification"
-        android:layout_height="wrap_content"/>
+    <!--    <Switch-->
+    <!--        android:id="@+id/notification"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:checked="true"-->
+    <!--        android:text="Notification"-->
+    <!--        android:layout_height="wrap_content"/>-->
+
+    <!--    <Switch-->
+    <!--        android:id="@+id/email"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:checked="true"-->
+    <!--        android:text="Email"-->
+    <!--        android:layout_height="wrap_content"/>-->
+
+    <TextView
+        style="@style/viewParent.headerText"
+        android:text="Settings" />
+
+    <TextView
+        style="@style/viewParent.headerText.settingsMiniTitle"
+        android:text="Notifications"/>
 
     <Switch
-        android:id="@+id/email"
-        android:layout_width="wrap_content"
+        style="@style/settingsText"
         android:checked="true"
-        android:text="Email"
-        android:layout_height="wrap_content"/>
+        android:id="@+id/notification"
+        android:drawableLeft="@drawable/ic_notifications"
+        android:text="Notifications" />
+    <Switch
+        style="@style/settingsText"
+        android:id="@+id/email"
+        android:checked="true"
+        android:drawableLeft="@drawable/ic_notifications"
+        android:text="Email Notifications" />
 
 </LinearLayout>

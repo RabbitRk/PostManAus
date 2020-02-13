@@ -19,7 +19,6 @@ import java.util.List;
 public class TimeLineAdapter extends RecyclerView.Adapter<TimeLineAdapter.holder> {
 
     private static final String TAG = "CompanyListing";
-    private ImageView item_image;
     private List<RecycleAdapter> dataModelArrayList;
     private MainFragment context;
     private OnRecycleItemListener mOnRecycleItemListener;

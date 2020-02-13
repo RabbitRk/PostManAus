@@ -29,8 +29,8 @@ import java.util.Map;
 public class RegistrationActivity extends AppCompatActivity {
 
     private static final String TAG = "rkd";
-    EditText user, mobile, address, email, password;
-    String getId, userStr,phoneStr, token, emailStr;
+    EditText user, mobile, address, email, password, device_id;
+    String getId, userStr,phoneStr, token, emailStr, device_id_;
 //    public static final String PHONE_EXTRA = "PhoneNumber";
 
 
@@ -40,7 +40,7 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
-        update_user();
+//        update_user();
         init();
     }
 
@@ -50,24 +50,25 @@ public class RegistrationActivity extends AppCompatActivity {
         address = findViewById(R.id.address);
         email= findViewById(R.id.email);
         password = findViewById(R.id.password);
+        device_id = findViewById(R.id.dev_id);
 
         SharedPreferences sharedPreferences = getSharedPreferences(Config.TOKEN_PREF, MODE_PRIVATE);
         token = sharedPreferences.getString("token", null);
         Log.i(TAG, "TokenRegistration: " + token);
     }
 
-    private void update_user() {
-        //denote user visit this page
-        PrefsManager prefsManager = new PrefsManager(getApplicationContext());
-        prefsManager.setFirstTimeLaunch(true);
-    }
+//    private void update_user() {
+//        //denote user visit this page
+//        PrefsManager prefsManager = new PrefsManager(getApplicationContext());
+//        prefsManager.setFirstTimeLaunch(true);
+//    }
 
     public void insertUser(View view) {
 
         userStr = user.getText().toString();
         phoneStr = mobile.getText().toString();
         emailStr = email.getText().toString();
-
+        device_id_ = device_id.getText().toString();
 
         final ProgressDialog loading = ProgressDialog.show(this, "Registering", "Please wait...", false, false);
 
@@ -79,27 +80,28 @@ public class RegistrationActivity extends AppCompatActivity {
                         //cancel the progress dialog
                         loading.dismiss();
                         Log.i(TAG, "Responce.............." + response);
-                        try {
-                            JSONArray arr = new JSONArray(response);
-                            JSONObject jb = arr.getJSONObject(0);
-                            getId = jb.getString("id");
+//                        try {
+//                            JSONArray arr = new JSONArray(response);
+//                            JSONObject jb = arr.getJSONObject(0);
+                            getId = response;
                             Log.i(TAG, "ID: " + getId);
                             if (!getId.equals("")) {
                                 setPrefsdetails();
                             } else {
                                 Toast.makeText(getApplicationContext(), "Registration not successful...Please try again", Toast.LENGTH_SHORT).show();
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Toast.makeText(getApplicationContext(), "Server is not responding...Please Try again!", Toast.LENGTH_SHORT).show();
-                        }
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                            Toast.makeText(getApplicationContext(), "Server is not responding...Please Try again!", Toast.LENGTH_SHORT).show();
+//                        }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         loading.dismiss();
-                        Log.i(TAG, "volley error.............................." + error.getMessage());
+                        error.printStackTrace();
+                        Log.i(TAG, "volley error.............................." + error.getMessage()+error.toString());
                         Toast.makeText(getApplicationContext(), "Server is not responding...Please Try again!", Toast.LENGTH_LONG).show();
                     }
                 }) {
@@ -112,12 +114,15 @@ public class RegistrationActivity extends AppCompatActivity {
                 params.put("EMAIL", email.getText().toString());
                 params.put("ADDRESS", address.getText().toString());
                 params.put("TOKEN", token);
+                params.put("DEV_ID", device_id_);
                 params.put("PASSWORD", password.getText().toString());
+                Log.i(TAG, "getParams: "+params);
                 return params;
             }
         };
 
         //Adding request the the queue
+
         VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
     }
 
@@ -135,5 +140,13 @@ public class RegistrationActivity extends AppCompatActivity {
         startActivity(ottp_page);
         finish();
         Log.i(TAG, "json success.............................." + getId);
+    }
+
+//  public void member_reg(View view) {
+//      startActivity(new Intent(this, MemberRegistrationActivity.class));
+//  }
+
+    public void gotomem(View view) {
+        startActivity(new Intent(this, MemberRegistrationActivity.class));
     }
 }

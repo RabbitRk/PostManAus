@@ -39,6 +39,7 @@ public class VolleySingleton {
 
     public<T> void addToRequestQueue(Request<T> request){
         // Add the specified request to the request queue
+        request.setShouldCache(false);
         getRequestQueue().add(request);
     }
 }

@@ -62,6 +62,7 @@ public class MainFragment extends Fragment implements TimeLineAdapter.OnRecycleI
 
         SharedPreferences shrp = Objects.requireNonNull(getActivity()).getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
         user_id = shrp.getString(ID_KEY,"");
+        Log.i(TAG, "init: user_id  "+user_id);
 
         recyclerView = view.findViewById(R.id.time_recycler);
         productAdapter = new ArrayList<>();
@@ -148,6 +149,10 @@ public class MainFragment extends Fragment implements TimeLineAdapter.OnRecycleI
             recyclerView.setAdapter(recycleadapter);
 
             recycleadapter.notifyDataSetChanged();
+        }
+        else
+        {
+            Log.i(TAG, "updaterecyclershit: else");
         }
 
 //        recyclerView = findViewById(R.id.recycler_view);

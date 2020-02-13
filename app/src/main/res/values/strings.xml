@@ -7,7 +7,13 @@
     <array name="menuOptions">
         <item>Home</item>
         <item>Add Member</item>
-        <item>Settings</item>
+        <item>Notification ON/OFF</item>
         <item>About</item>
     </array>
+    <string name="submit">Submit</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="enter_email_address">Enter Email Address</string>
+    <string name="enter_address">Enter Address</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="user_name">User Name</string>
 </resources> 

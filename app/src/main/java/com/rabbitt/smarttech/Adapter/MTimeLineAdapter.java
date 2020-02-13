@@ -11,7 +11,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.rabbitt.smarttech.Fragment.MainFragment;
 import com.rabbitt.smarttech.MemberActivity;
 import com.rabbitt.smarttech.R;
 

@@ -45,12 +45,12 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.holder> {
         RecycleAdapter dataModel = dataModelArrayList.get(i);
 
         Log.i(TAG, "" + i);
-        Log.i(TAG, dataModel.getItem_date());
+//        Log.i(TAG, dataModel.getItem_date());
 
         //Load text
         holder.user.setText(dataModel.getUser_id());
         holder.name.setText(dataModel.getMember_name());
-        holder.name.setText(dataModel.getMember_phone());
+        holder.phone.setText(dataModel.getMember_phone());
     }
 
     @Override

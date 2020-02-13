@@ -13,6 +13,8 @@ public class PrefsManager {
     // Shared preferences file name
     private static final String PREF_NAME = "USER_PREFS";
     private static final String LOGIN = "IsFirstTimeLaunch";
+    private static final String SET_EMAIL = "SET_EMAIL";
+    private static final String SET_NOTIS = "SET_EMAIL";
     private static final String FLASH = "IsFlash";
     //user details
     public static final String USER_PREFS = "USER_DETAILS";
@@ -57,4 +59,17 @@ public class PrefsManager {
         user_editor.putString(USER_EMAIL, emailStr);
         user_editor.commit();
     }
+
+    public void setEmail(boolean val) {
+        user_editor.putBoolean(SET_EMAIL, val);
+        user_editor.commit();
+    }
+
+    public void setNotis(boolean val) {
+        user_editor.putBoolean(SET_NOTIS, val);
+        user_editor.commit();
+    }
+
+
+
 }

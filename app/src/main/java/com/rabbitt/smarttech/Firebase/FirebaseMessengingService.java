@@ -86,7 +86,6 @@ public class FirebaseMessengingService extends FirebaseMessagingService {
 
             notificationManager.notify(/*notification id*/1, notificationBuilder.build());
 
-
         } catch (JSONException e) {
             Log.e("remote", "Json Exception: " + e.getMessage());
         } catch (Exception e) {
