@@ -80,10 +80,25 @@ public class RegistrationActivity extends AppCompatActivity {
                         //cancel the progress dialog
                         loading.dismiss();
                         Log.i(TAG, "Responce.............." + response);
+
 //                        try {
 //                            JSONArray arr = new JSONArray(response);
 //                            JSONObject jb = arr.getJSONObject(0);
-                            getId = response;
+
+                            if(response.equals("failed"))
+                            {
+                                Toast.makeText(getApplicationContext(), "Registration not successful...Please try again", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+
+                        int iend = response.indexOf("<"); //this finds the first occurrence of "."
+
+                        if (iend != -1)
+                        {
+                            getId = response.substring(0 , iend); //this will give abc
+                        }
+
+//                            getId = response;
                             Log.i(TAG, "ID: " + getId);
                             if (!getId.equals("")) {
                                 setPrefsdetails();

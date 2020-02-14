@@ -1,12 +1,14 @@
 package com.rabbitt.smarttech;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -22,6 +24,7 @@ import com.rabbitt.smarttech.Adapter.MTimeLineAdapter;
 import com.rabbitt.smarttech.Adapter.RecycleAdapter;
 import com.rabbitt.smarttech.Adapter.TimeLineAdapter;
 import com.rabbitt.smarttech.PrefsManager.Config;
+import com.rabbitt.smarttech.PrefsManager.PrefsManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,10 +36,12 @@ import java.util.List;
 import java.util.Map;
 
 import static com.rabbitt.smarttech.OtpActivity.TAG;
+import static com.rabbitt.smarttech.PrefsManager.PrefsManager.ID_KEY;
+import static com.rabbitt.smarttech.PrefsManager.PrefsManager.USER_PREFS;
 
 public class MemberActivity extends AppCompatActivity implements MTimeLineAdapter.OnRecycleItemListener{
 
-    View view;
+//    View view;
 
     RecyclerView recyclerView;
     List<RecycleAdapter> productAdapter;
@@ -49,6 +54,20 @@ public class MemberActivity extends AppCompatActivity implements MTimeLineAdapte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_member);
+
+        PrefsManager prefsManager = new PrefsManager(this);
+        prefsManager.setFirstTimeLaunch(true);
+        prefsManager.setFlashResult(true);
+
+        SharedPreferences shrp = getSharedPreferences(USER_PREFS, MODE_PRIVATE);
+        user_id = shrp.getString(ID_KEY,"");
+        getCompanyList();
+
+        Toolbar toolbar = findViewById(R.id.tool);
+        // Setting toolbar as the ActionBar with setSupportActionBar() call
+        setSupportActionBar(toolbar);
+
+        recyclerView = findViewById(R.id.member_recycler);
     }
 
     @Override
@@ -64,9 +83,9 @@ public class MemberActivity extends AppCompatActivity implements MTimeLineAdapte
             case R.id.item1:
                 startActivity(new Intent(this, SettingActivity.class));
                 return true;
-            case R.id.item2:
-                Toast.makeText(getApplicationContext(),"Log off",Toast.LENGTH_LONG).show();
-                return true;
+//            case R.id.item2:
+//                Toast.makeText(getApplicationContext(),"Log off",Toast.LENGTH_LONG).show();
+//                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

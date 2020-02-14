@@ -57,6 +57,7 @@ public class OtpActivity extends AppCompatActivity {
         Intent intent = getIntent();
         phoneTxt = intent.getStringExtra("phone");
         activity = intent.getStringExtra("activity");
+
         tv = findViewById(R.id.otpTxt);
 
         Log.i(TAG, "Phone checking........................" + phoneTxt);
@@ -167,7 +168,7 @@ public class OtpActivity extends AppCompatActivity {
                 //Adding the parameters otp and username
                 params.put("cus_phone", phoneTxt);
                 params.put("otp", otpLocal);
-                params.put("token", token);
+//                params.put("token", token);
                 params.put("activity", activity);
                 return params;
             }

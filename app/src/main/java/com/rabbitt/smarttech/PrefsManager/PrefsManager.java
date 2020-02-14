@@ -57,6 +57,8 @@ public class PrefsManager {
         user_editor.putString(USER_NAME, username);
         user_editor.putString(USER_PHONE, phonenumber);
         user_editor.putString(USER_EMAIL, emailStr);
+        user_editor.putBoolean(SET_EMAIL, true);
+        user_editor.putBoolean(SET_NOTIS, true);
         user_editor.commit();
     }
 

@@ -74,21 +74,34 @@ public class MemberRegistrationActivity extends AppCompatActivity {
                         //cancel the progress dialog
                         loading.dismiss();
                         Log.i(TAG, "Responce.............." + response);
-                        try {
-                            JSONArray arr = new JSONArray(response);
-                            JSONObject jb = arr.getJSONObject(0);
-                            getId = jb.getString("id");
+//                        try {
+//                            JSONArray arr = new JSONArray(response);
+//                            JSONObject jb = arr.getJSONObject(0);
+//                            getId = jb.getString("id");
+                        if(response.equals("failed"))
+                        {
+                            Toast.makeText(getApplicationContext(), "Registration not successful...Please try again", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        int iend = response.indexOf("<"); //this finds the first occurrence of "."
+
+                        if (iend != -1)
+                        {
+                            getId = response.substring(0 , iend); //this will give abc
+                        }
+
                             Log.i(TAG, "ID: " + getId);
                             if (!getId.equals("")) {
                                 setPrefsdetails();
                             } else {
                                 Toast.makeText(getApplicationContext(), "Registration not successful...Please try again", Toast.LENGTH_SHORT).show();
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-
-                            Toast.makeText(getApplicationContext(), "Server is not responding...Please Try again!", Toast.LENGTH_SHORT).show();
-                        }
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//
+//                            Toast.makeText(getApplicationContext(), "Server is not responding...Please Try again!", Toast.LENGTH_SHORT).show();
+//                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -110,7 +123,7 @@ public class MemberRegistrationActivity extends AppCompatActivity {
                 params.put("TOKEN", token);
                 params.put("PARENT", password.getText().toString());
 
-//                Log.i(TAG, "getParams: "+params);
+                Log.i(TAG, "getParams: "+params);
                 return params;
             }
         };

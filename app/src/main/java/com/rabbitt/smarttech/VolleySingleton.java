@@ -1,8 +1,10 @@
 package com.rabbitt.smarttech;
 import android.content.Context;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.RetryPolicy;
 import com.android.volley.toolbox.Volley;
 
 public class VolleySingleton {
@@ -39,6 +41,11 @@ public class VolleySingleton {
 
     public<T> void addToRequestQueue(Request<T> request){
         // Add the specified request to the request queue
+        RetryPolicy mRetryPolicy = new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        request.setRetryPolicy(mRetryPolicy);
         request.setShouldCache(false);
         getRequestQueue().add(request);
     }
